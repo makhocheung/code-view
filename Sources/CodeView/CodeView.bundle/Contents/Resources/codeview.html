@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="lib/codemirror.js"></script>
+    <script src="mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <link rel="stylesheet" href="theme/material-palenight.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .CodeMirror {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+</body>
+<script>
+    const editor = CodeMirror(document.body, {
+        value: getStringFromHex(code),
+        lineNumbers: true,
+        theme: theme || "default",
+        mode: "javascript"
+    });
+
+    function updateCode(data) {
+        editor.setValue(getStringFromHex(data));
+    }
+
+    function getStringFromHex(data) {
+        return decodeURIComponent(data.replace(/\s+/g, '').replace(/[0-9a-f]{2}/g, '%$&'));
+    }
+
+    // window.webkit.messageHandlers.log.postMessage("test");
+</script>
+</html>

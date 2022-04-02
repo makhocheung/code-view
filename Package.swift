@@ -4,25 +4,34 @@
 import PackageDescription
 
 let package = Package(
-    name: "code-view",
-    products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "code-view",
-            targets: ["code-view"]),
-    ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
-            name: "code-view",
-            dependencies: []),
-        .testTarget(
-            name: "code-viewTests",
-            dependencies: ["code-view"]),
-    ]
+        name: "code-view",
+        platforms: [
+            .iOS(.v15),
+            .macOS(.v12)
+        ],
+        products: [
+            // Products define the executables and libraries a package produces, and make them visible to other packages.
+            .library(
+                    name: "CodeView",
+                    targets: ["CodeView"]),
+        ],
+        dependencies: [
+            // Dependencies declare other packages that this package depends on.
+            // .package(url: /* package url */, from: "1.0.0"),
+        ],
+        targets: [
+            // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+            // Targets can depend on other targets in this package, and on products in packages this package depends on.
+            .target(
+                    name: "CodeView",
+                    dependencies: [],
+                    resources: [
+                        .copy("CodeView.bundle")
+                    ]
+            ),
+            .testTarget(
+                    name: "CodeViewTests",
+                    dependencies: ["CodeView"]
+            ),
+        ]
 )
