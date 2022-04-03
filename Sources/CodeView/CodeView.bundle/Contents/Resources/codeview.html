@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="lib/codemirror.js"></script>
     <script src="mode/javascript/javascript.js"></script>
+    <script src="mode/yaml/yaml.js"></script>
     <link rel="stylesheet" href="lib/codemirror.css">
     <link rel="stylesheet" href="theme/material-palenight.css">
+    <link rel="stylesheet" href="addon/fold/foldgutter.css"/>
+
+    <script src="addon/fold/foldcode.js"></script>
+    <script src="addon/fold/foldgutter.js"></script>
+    <script src="addon/fold/brace-fold.js"></script>
+    <script src="addon/fold/xml-fold.js"></script>
+    <script src="addon/fold/indent-fold.js"></script>
+    <script src="addon/fold/comment-fold.js"></script>
     <style>
         html, body {
             margin: 0;
@@ -20,15 +29,18 @@
             height: 100%;
         }
     </style>
+    <title>CodeView</title>
 </head>
 <body>
 </body>
 <script>
     const editor = CodeMirror(document.body, {
         value: getStringFromHex(code),
-        lineNumbers: true,
         theme: theme || "default",
-        mode: "javascript"
+        mode: mode || "javascript",
+        foldGutter: true,
+        readOnly: "nocursor",
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     });
 
     function updateCode(data) {

@@ -13,12 +13,14 @@ public struct CodeView: ViewRepresentable {
 
     private let useGlobalWebView: Bool
     private let isDarkMode: Bool
+    private let mode: String
     @Binding public var code: String
 
-    public init(useGlobalWebView: Bool = true, code: Binding<String>, isDarkMode: Bool = false) {
+    public init(useGlobalWebView: Bool = true, code: Binding<String>, mode: String, isDarkMode: Bool = false) {
         _code = code
         self.useGlobalWebView = useGlobalWebView
         self.isDarkMode = isDarkMode
+        self.mode = mode
         if self.useGlobalWebView && CodeView.globalWebView == nil {
             CodeView.globalWebView = doCreateWebView(code: self.code)
         }
@@ -64,7 +66,7 @@ public struct CodeView: ViewRepresentable {
             String(format: "%02hhx", $0)
         }
         .joined()
-        let userScript = WKUserScript(source: "const theme='\(isDarkMode ? "material-palenight" : "default")';const code = '\(hexString)'",
+        let userScript = WKUserScript(source: "const theme='\(isDarkMode ? "material-palenight" : "default")';const code = '\(hexString)';const mode = '\(mode)';",
                 injectionTime: .atDocumentStart, forMainFrameOnly: false)
         wkUserContentController.addUserScript(userScript)
         let wkConfiguration = WKWebViewConfiguration()
